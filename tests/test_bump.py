@@ -88,6 +88,22 @@ class Rewrite(unittest.TestCase):
         new, report = bump.bump_manifest(self.manifest(), lambda r: [rel("v2.101.0"), rel("v2.1.0")], lambda u: b"")
         self.assertEqual((new, report), (self.manifest(), []))
 
+    def test_uv_unprefixed_tags_and_member_path(self):  # B2 B5 with a 0.x tool whose tags have no "v"
+        uv = ("uv 0.12.24 minor astral-sh/uv https://github.com/astral-sh/uv/releases/download/{version}/"
+              "uv-x86_64-unknown-linux-musl.tar.gz uv-x86_64-unknown-linux-musl/uv " + "c" * 64 + " -")
+        seen = []
+
+        def fetch(url):
+            seen.append(url)
+            return b"uv archive"
+
+        new, report = bump.bump_manifest(uv + "\\n", lambda r: [rel("0.13.1"), rel("0.12.24"), rel("1.0.0")], fetch)
+        self.assertEqual(seen, ["https://github.com/astral-sh/uv/releases/download/0.13.1/uv-x86_64-unknown-linux-musl.tar.gz"])
+        f = new.split()
+        self.assertEqual((f[0], f[1], f[5]), ("uv", "0.13.1", "uv-x86_64-unknown-linux-musl/uv"))
+        self.assertEqual(f[6], hashlib.sha256(b"uv archive").hexdigest())
+        self.assertEqual(report, ["uv 0.12.24 -> 0.13.1"])  # minor policy never jumps to 1.0.0
+
     def test_failed_download_leaves_line(self):  # B6
         def releases(repo):
             return [rel("v2.102.0")] if repo == "cli/cli" else [rel("v2.1.4")]
