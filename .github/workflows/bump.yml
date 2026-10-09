@@ -1,0 +1,36 @@
+name: bump
+# Weekly: move each tool to the newest release its policy allows, verify it for
+# real, and commit to main. hermes-prod installs it within ~15 minutes.
+# A failed run emails the repository owner (GitHub default for scheduled workflows)
+# and changes nothing.
+on:
+  schedule:
+    - cron: "17 5 * * 1"     # Monday 05:17 UTC
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: bump
+  cancel-in-progress: false
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: bump logic (offline)
+        run: python3 -m unittest discover -s tests
+      - name: bump tools.txt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 scripts/bump.py tools.txt | tee bump-report.txt
+      - name: verify the result for real
+        run: bash scripts/verify.sh tools.txt
+      - name: commit and push
+        run: |
+          if git diff --quiet -- tools.txt; then echo "nothing to bump"; exit 0; fi
+          git config user.name  "hermes-tools-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "bump: $(grep -- ' -> ' bump-report.txt | grep -v FAILED | paste -sd ';' -)" -- tools.txt
+          git push origin HEAD:main
+      - name: fail the run if any tool could not be bumped
+        run: "! grep -q FAILED bump-report.txt"
