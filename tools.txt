@@ -4,4 +4,4 @@
 #
 # name      version  policy  repo               url ({version} is substituted)                                                       member (path inside the archive)  sha256 (of the archive)                                           require (must appear in --version, "-" = nothing)
 himalaya    2.1.0    patch   pimalaya/himalaya  https://github.com/pimalaya/himalaya/releases/download/v{version}/himalaya.x86_64-linux.tgz  himalaya                          683a2ab8e1534f01e6bda3a69e204d564c31fbfbe20511fc7bc60b67f2e85884  +msgraph
-gh          2.101.0  minor   cli/cli            https://github.com/cli/cli/releases/download/v{version}/gh_{version}_linux_amd64.tar.gz       gh_{version}_linux_amd64/bin/gh   9bca2d1c16825f109907a23307628a2f0698fbf99662b73a5cf0b020293072b8  -
+gh          2.102.0  minor   cli/cli            https://github.com/cli/cli/releases/download/v{version}/gh_{version}_linux_amd64.tar.gz       gh_{version}_linux_amd64/bin/gh   bb766f710eef8ede859c18578c72c327597cd4c8a85b06001b1f3843c6019386  -
