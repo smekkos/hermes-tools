@@ -12,7 +12,7 @@ Monday 05:17 UTC  bump.yml: newest release allowed by each tool's policy
 every 15 min      hermes-prod git-sync: /var/lib/hermes/data/hermes-tools = main
 every 15 min      hermes-prod tools-install.sh (smekkos/hermes-do):
                   download → sha256 check → --version smoke test as the agent user
-                  → switch tools/current/<name> → links in /opt/data/bin and /opt/data/.local/bin
+                  → switch cli-tools/current/<name> → links in /opt/data/bin and /opt/data/.local/bin
 ```
 
 Inside the container a tool is available as plain `himalaya` / `gh`
