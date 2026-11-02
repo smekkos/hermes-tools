@@ -4,5 +4,5 @@
 #
 # name      version  policy  repo               url ({version} is substituted)                                                       member (path inside the archive)  sha256 (of the archive)                                           require (must appear in --version, "-" = nothing)
 himalaya    2.1.0    patch   pimalaya/himalaya  https://github.com/pimalaya/himalaya/releases/download/v{version}/himalaya.x86_64-linux.tgz  himalaya                          683a2ab8e1534f01e6bda3a69e204d564c31fbfbe20511fc7bc60b67f2e85884  +msgraph
-gh          2.103.2  minor   cli/cli            https://github.com/cli/cli/releases/download/v{version}/gh_{version}_linux_amd64.tar.gz       gh_{version}_linux_amd64/bin/gh   62ccf747115ddc61237efffdde66a3c8f70ba249433dc64f70801089b59c59c8  -
-uv          0.13.5  minor   astral-sh/uv       https://github.com/astral-sh/uv/releases/download/{version}/uv-x86_64-unknown-linux-musl.tar.gz  uv-x86_64-unknown-linux-musl/uv   57ef9d9ccb01fb1bd998df995b0dd221b52f7d7841fbea93f2d4463bf61fb7a9  -
+gh          2.103.3  minor   cli/cli            https://github.com/cli/cli/releases/download/v{version}/gh_{version}_linux_amd64.tar.gz       gh_{version}_linux_amd64/bin/gh   4c806978ffce1cec70853302a56d70ac6da4f19bae7adca4e1a8ab00633dd91d  -
+uv          0.13.6  minor   astral-sh/uv       https://github.com/astral-sh/uv/releases/download/{version}/uv-x86_64-unknown-linux-musl.tar.gz  uv-x86_64-unknown-linux-musl/uv   5d61f26b6c7213779eda90edc6971ea6b0b796bfb8d49a574c8ad69b59838548  -
